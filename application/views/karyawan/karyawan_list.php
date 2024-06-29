@@ -47,6 +47,7 @@
                                     <option id="csv">Ekspor menjadi CSV</option>
                                     <option id="print">Cetak Data</option>
                                     <option id="pdf">Ekspor menjadi PDF</option>
+                                    <option id="excel">Ekspor menjadi Excel</option>
                                 </select>
                             </div>
                         </div>

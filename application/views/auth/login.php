@@ -18,11 +18,48 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/iCheck/square/blue.css">
     <link rel="icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/gif">
 
+    <script>
+        function displayTime() {
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            var seconds = currentTime.getSeconds();
+
+            // Convert to WIB timezone (UTC+7)
+            hours = hours + 0;
+            if (hours >= 24) {
+                hours = hours - 24;
+            }
+
+            // Add leading zeros to minutes and seconds
+            minutes = (minutes < 10 ? '0' : '') + minutes;
+            seconds = (seconds < 10 ? '0' : '') + seconds;
+
+            var timeString = hours + ':' + minutes + ':' + seconds;
+            document.getElementById('clock').innerHTML = timeString;
+
+            // Display shift information
+            var shiftInfo = document.getElementById('shift-info');
+            if (hours >= 8 && hours < 19) {
+                shiftInfo.innerHTML = 'SHIFT 1 (08:00 - 19:00 WIB)';
+            } else {
+                shiftInfo.innerHTML = 'SHIFT 2 (19:00 - 08:00 WIB)';
+            }
+        }
+
+        // Update the clock and shift information every second
+        setInterval(displayTime, 1000);
+    </script>
 </head>
 <style>
     .login-logo a,
     .register-logo a {
         color: #fbfbfb;
+    }
+
+    body {
+        background-image: url('https://img.antaranews.com/cache/1200x800/2022/10/18/IMG-20221018-WA0017.jpg.webp') !important;
+        background-size: cover;
     }
 </style>
 
@@ -42,7 +79,10 @@
                 <h3 class="text-center mt-0 mb-4">
                     <b>ABSENSI KARYAWAN</b>
                 </h3>
-                <p class="login-box-msg">Login to start session</p>
+                <h4 class="text-center" id="clock"></h4>
+                <p class="text-center" id="shift-info"></p>
+                <p class="login-box-msg">Login Untuk Memulai</p>
+
                 <div id="infoMessage" class="text-center"><?php echo $message; ?></div>
                 <?= form_open("auth/cek_login", array('id' => 'login')); ?>
                 <div class="form-group has-feedback">
@@ -70,7 +110,7 @@
                     <!-- /.col -->
                 </div>
                 <?= form_close(); ?>
-                <p align='center'><b><i>Gunakan User dibawah ini</i></b></p>		
+                <p align='center'><b><i>Gunakan User dibawah ini</i></b></p>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

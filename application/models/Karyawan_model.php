@@ -14,6 +14,23 @@ class Karyawan_model extends CI_Model
     {
         parent::__construct();
     }
+    // Method untuk mengambil data karyawan berdasarkan id karyawan
+    public function get_karyawan_by_nomor($id)
+    {
+        $this->db->select('a.id, a.id_karyawan, a.nama_karyawan, b.nama_jabatan, d.nama_shift, c.nama_gedung, c.alamat');
+        $this->db->from('karyawan as a');
+        $this->db->join('jabatan as b', 'b.id_jabatan = a.jabatan');
+        $this->db->join('gedung as c', 'a.gedung_id = c.gedung_id');
+        $this->db->join('shift as d', 'd.id_shift = a.id_shift');
+        $this->db->where('a.id', $id); // Menggunakan a.id untuk mencocokkan id karyawan
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
+    }
 
     // get all
     function get_all()
@@ -66,7 +83,7 @@ class Karyawan_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-  
+
 
     // insert data
     function insert($data)

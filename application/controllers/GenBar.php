@@ -37,6 +37,8 @@ class GenBar extends CI_Controller
 					'nama_karyawan' => $row->nama_karyawan,
 					'nama_jabatan' => $row->nama_jabatan,
 					'nama_shift' => $row->nama_shift,
+					'id' => $row->id,
+					'alamat' => $row->alamat,
 					'nama_gedung' => $row->nama_gedung
 				);
 				$this->load->view('ambilqr/v_scan', $shows);
